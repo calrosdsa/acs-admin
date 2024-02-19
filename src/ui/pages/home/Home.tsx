@@ -11,8 +11,14 @@ const Home = ({download}:{
     download:string
   }) =>{
     const downloadFile = async() => {
+      // http://172.20.20.57:9090/v1/reporte/empleados/
         const date = moment().format('LLLL').replace(":",";");
-        await axios.get(`${API_URL}/reporte/empleados/`,{
+        await axios.post(`${API_URL}/reporte/empleados/`,{
+          "cardHolderGuid":"1910a888-c931-483b-bcd4-d5a2370f96b5",
+          "lang":"es",
+          "start_date":"2024-02-02",
+          "end_date":"2024-02-08 23:00:00",
+        },{
             responseType:"blob"
         }).then((response)=>{
             const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -29,7 +35,7 @@ const Home = ({download}:{
           
           <main className="">
       <Button variant="contained" onClick={()=>downloadFile()}
-      >Download</Button>
+      >{download}</Button>
       <TextField id="outlined-basic" label="Outlined" variant="outlined" size="small"/>
        <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
